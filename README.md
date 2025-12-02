@@ -1,10 +1,6 @@
 # ADF_documentation
 
-Here you go — a clean, structured **README.md** with **detailed explanations, examples, and real-world scenarios** based on your outline.
 
----
-
-```md
 # ⭐ Azure Key Features and Services — Overview with Examples & Scenarios
 
 This document provides a beginner-friendly yet detailed explanation of some of Microsoft's core Azure concepts including subscriptions, resource groups, the Azure Portal, and command-line interaction tools such as Azure CLI and PowerShell.
@@ -244,5 +240,4 @@ Azure gives developers and enterprises flexibility to deploy, manage, and scale 
 
 
 
----
-```
+
