@@ -240,4 +240,94 @@ Azure gives developers and enterprises flexibility to deploy, manage, and scale 
 
 
 
+# Azure Storage, Data Factory & Integration Overview
+
+This document provides a simplified overview of Azure Storage services, Azure Data Factory concepts, and integration best practices with examples and real-world scenarios.
+
+---
+
+## 🚀 1. Azure Storage Account Types
+
+Azure Storage provides scalable and secure cloud storage with support for multiple data formats.
+
+### 1.1 Blob Storage
+Used for storing unstructured data such as images, CSV files, backups, or logs.
+
+**Real-Time Example:**  
+A data engineering team stores raw ingestion files in Blob storage before ETL.
+
+### 1.2 File Storage
+Managed SMB file shares accessible from cloud or on-prem resources.
+
+**Real-Time Example:**  
+Virtual machines mount Azure File Share for shared log storage.
+
+### 1.3 Table Storage
+A NoSQL key-value store for structured but non-relational data.
+
+**Real-Time Example:**  
+IoT telemetry data stored for scalable fast lookup.
+
+### 1.4 Queue Storage
+Messaging store for asynchronous communication between services.
+
+**Real-Time Example:**  
+Trigger downstream processing when a file is uploaded.
+
+---
+
+## ⚙️ 2. Azure Data Factory (ADF)
+
+Azure Data Factory is a cloud-based ETL/ELT service used for data orchestration.
+
+### 2.1 Introduction
+Used to ingest, transform, schedule, and load data across on-prem and cloud sources.
+
+### 2.2 Key Components
+
+| Component | Description |
+|----------|-------------|
+| Pipeline | Workflow containing activities |
+| Dataset | Schema representation of data |
+| Linked Service | Connection metadata to sources |
+
+**Real Scenario:**  
+Daily ETL pipelines run at midnight to load data from an on-prem database to Azure Synapse.
+
+---
+
+## 🔐 3. Azure Key Vault
+
+Used to securely store sensitive information like passwords, API keys, and certificates.
+
+**Real Scenario:**  
+ADF pipelines use Key Vault to retrieve SQL credentials securely without exposing them.
+
+---
+
+## 🔗 4. Integration with Azure Services
+
+### 4.1 Datasets & Linked Services
+Datasets reference data, while Linked Services define connections.
+
+### 4.2 Integration Runtime (IR)
+
+| Type | Purpose |
+|------|---------|
+| Azure IR | Cloud-to-cloud movement |
+| Self-Hosted IR | On-prem to cloud |
+| Managed VNet IR | Secure data movement in restricted networks |
+
+### 4.3 Triggers & Monitoring
+ADF supports Scheduling, Event-based triggers, and monitoring through the Azure portal with alerts.
+
+**Real Scenario:**  
+A file arriving in Blob Storage automatically triggers a pipeline using event triggers.
+
+---
+
+---
+
+
+
 
