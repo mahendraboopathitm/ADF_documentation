@@ -328,6 +328,174 @@ A file arriving in Blob Storage automatically triggers a pipeline using event tr
 
 ---
 
+# 📘 Azure Data Factory + Databricks + DevOps README
+
+---
+
+## **1️⃣ Activities in Azure Data Factory (ADF)**
+
+Activities in ADF define **what action** should be performed. There are three major types:
+
+* **Data Movement Activities**
+* **Execution Control Activities**
+* **Control Flow Activities**
+
+---
+
+### **1.1 Data Movement Activities**
+
+Used to move data between supported sources and destinations using **Copy Activity**.
+
+#### **1.1.1 Azure Blob Storage Source/Sink:**
+
+| Scenario | Example                                                                    |
+| -------- | -------------------------------------------------------------------------- |
+| Source   | Read CSV files from Blob Storage and copy to SQL Database                  |
+| Sink     | Store transformed files from SQL/Databricks back to Blob for storage layer |
+
+**Example use case:**
+
+> Source: `raw/customer_data.csv` in Blob → Sink: Azure SQL `dbo.Customers`
+
+#### **1.1.2 Azure SQL Database Source/Sink:**
+
+Used when SQL Database is either the source or destination.
+
+**Real Example:**
+
+> Copy incremental sales data from SQL and store into ADLS Gen2 for reporting.
+
+---
+
+### **1.2 Execution Control Activities**
+
+These help control the **workflow** logic and orchestration.
+
+#### **1.2.1 Execute Pipeline Activity:**
+
+Used to run a pipeline from another pipeline.
+
+**Example:**
+
+> Master Pipeline → Executes pipeline to copy raw → Executes pipeline for validation → Executes data transformation.
+
+#### **1.2.2 If Condition Activity:**
+
+Executes logic based on true/false output.
+
+**Real Scenario:**
+
+> If today's file exists → proceed with load, else send failure notification.
+
+#### **1.2.3 ForEach Activity:**
+
+Loops through a collection of items.
+
+**Example:**
+
+> Iterate through multiple folders/files: `jan`, `feb`, `mar` and load data.
+
+#### **1.2.4 Web Activity:**
+
+Calls REST API endpoint.
+
+**Use Case:**
+
+> Trigger Databricks job or external API before/after pipeline run.
+
+---
+
+### **1.3 Control Flow Activities**
+
+These activities control pipeline structure and behaviour.
+
+#### **1.3.1 Wait Activity:**
+
+Pauses execution for a given time.
+
+**Example:** Wait 5 mins before retrying external API.
+
+#### **1.3.2 Until Activity:**
+
+Loops until a logical condition becomes true.
+
+**Example:** Continue checking file arrival every 10 mins until file exists.
+
+#### **1.3.3 Get Metadata Activity:**
+
+Fetch metadata like file size, existence, folder count.
+
+**Real Case:** Check if today's file exists in storage.
+
+#### **1.3.4 Lookup Activity:**
+
+Fetch single row from a data store.
+
+**Example:** Lookup valid file date or expected record count.
+
+#### **1.3.5 Stored Procedure Activity:**
+
+Runs stored procedure in SQL.
+
+**Use Case:**
+
+> After data load, execute stored procedure for cleansing or merge operation.
+
+---
+
+### **1.4 Pipelines and Triggers**
+
+Pipelines are containers of activities.
+
+Triggers schedule and execute pipelines.
+
+| Trigger Type    | Use Case                                |
+| --------------- | --------------------------------------- |
+| Schedule        | Run every day at 1 AM                   |
+| Tumbling Window | Time-sliced batch data like hourly logs |
+| Event Trigger   | Detect file arrival in storage          |
+
+---
+
+## **2️⃣ Azure Databricks Notebooks**
+
+### **2.1 Overview of Azure Databricks Notebook Integration**
+
+ADF can call Databricks notebooks for processing and transformation.
+
+**Use Case:** To perform ETL processing using PySpark.
+
+### **2.2 Notebook Orchestration**
+
+Triggered via:
+
+* **Databricks Notebook Activity**
+* **REST Web Activity**
+
+**Example:**
+
+> Copy → Validate → Databricks transform → Load curated layer.
+
+---
+
+## **3️⃣ Azure DevOps CI/CD Integration**
+
+### **3.1 Continuous Integration and Deployment**
+
+Used for:
+
+* Version control of ADF JSON using Git
+* Automated deployment to higher environments (Dev → QA → Prod)
+
+**Example Flow:**
+
+```
+Developer commits changes → Pull Request → CI pipeline validates JSON → CD publishes ARM templates to prod
+```
+
+---
+
+
 
 
 
